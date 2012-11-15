@@ -19,7 +19,7 @@ from .exceptions import DownloadFailedError
 from .language import Language, language_set, LANGUAGES
 from .services import ServiceConfig
 from .tasks import DownloadTask, ListTask
-from .utils import get_keywords
+from .utils import get_keywords, to_unicode
 from .videos import Episode, Movie, scan
 from collections import defaultdict
 from itertools import groupby
@@ -94,7 +94,7 @@ def create_list_tasks(paths, languages, services, force, multi, cache_dir, max_d
                 logger.debug(u'No need to list multi subtitles %r for %r because %r detected' % (languages, video, detected_languages))
                 continue
         if not force and not multi and Language('Undetermined') in detected_languages:
-            logger.debug(u'No need to list single subtitles %r for %r because one detected' % (languages, video))
+            logger.debug(u'No need to list single subtitles %r for %r because one detected' % (languages, to_unicode(video)))
             continue
         logger.debug(u'Listing subtitles %r for %r with services %r' % (wanted_languages, video, services))
         for service_name in services:
